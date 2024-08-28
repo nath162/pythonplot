@@ -1,46 +1,63 @@
 from tkinter import *
 import matplotlib.pyplot as plt
-
-def plot(valx,valy,labelx = "label",labely = "label"):
-    #reste de la fonction a faire
-    plt.axis((min(valx),max(valx),min(valy),max(valy)))
-    plt.plot(valx,valy)
+#----------
+def plotf():
+    plt.plot(tupleofvalx,tupleofvaly)
     plt.show()
 
 def savepoint():
-    listofval.append(entryForPoint.get())
-    listofxval,listofyval = []
-    for i in range(len(listofval)):
-        listofxval.append(listofval[i][0])
-        listofyval.append(listofval[i][1])
+    global tupleofvalx,tupleofvaly
+    listofvalx = entryForPointx.get()
+    tupleofvalx = list()
+    for i in listofvalx:
+        if i.isnumeric():
+            tupleofvalx.append(int(i))
+    tupleofvalx = tuple(tupleofvalx)
+
+    listofvaly = entryForPointy.get()
+    tupleofvaly = list()
+    for i in listofvaly:
+        if i.isnumeric():
+            tupleofvaly.append(int(i))
+    tupleofvaly = tuple(tupleofvaly)
 
 def getlabel():
     global labelx,labely
-    labelx = entryForLabelx.get()
-    labely = entryForLabely.get()
-
-
-listofxval = []
-listofyval = []
-listofval = []
-
+    plt.xlabel(entryForLabelx.get())
+    plt.ylabel(entryForLabely.get())
+tupleofvalx = ()
+listofvalx = []
+tupleofvaly = ()
+listofvaly = []
+#----------
 window = Tk()
 
-window.geometry("1920x1080")
+window.geometry("400x300")
 window.title("plot graph app")
 window.iconphoto(True,PhotoImage(file="C:\\Users\\lopib\Downloads\\117-1170352_line-graph-graph-icon-png-free-transparent-png.png"))
-plotButton = Button(master=window,text="plot",command=plot(listofxval,listofyval,labelx,labely))
+plotButton = Button(master=window,text="plot",command=plotf)
 savePointButton = Button(master=window,text="new point",command=savepoint)
 savelabels = Button(master=window,text ="save labels",command=getlabel)
-entryForPoint = Entry(master=window)
+labelbuttonpx = Label(text="enter the list of the x coordinates")
+entryForPointx = Entry(master=window)
+labelbuttonpy = Label(text="enter the list of the y coordinates")
+entryForPointy = Entry(master=window)
+labelbuttonlx = Label(text="enter the x label")
 entryForLabelx = Entry(master=window)
+labelbuttonly = Label(text="enter the y label")
 entryForLabely = Entry(master=window)
 
 plotButton.pack()
-entryForPoint.pack()
+labelbuttonpx.pack()
+entryForPointx.pack()
+labelbuttonpy.pack()
+entryForPointy.pack()
+labelbuttonlx.pack()
 entryForLabelx.pack()
+labelbuttonly.pack()
 entryForLabely.pack()
 savelabels.pack()
 savePointButton.pack()
 
 window.mainloop()
+#-------------
